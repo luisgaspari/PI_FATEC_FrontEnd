@@ -2,3 +2,14 @@ body {
     background-color: #ccc;
 }
 
+.subtittle{
+    color: red;
+}
+
+.prompt{
+    color: green;
+}
+
+.list{
+    color: blue;
+}
