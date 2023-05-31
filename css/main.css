@@ -16,4 +16,5 @@ body {
 
 .list{
     color: black;
+    list-style-type: disc;
 }
