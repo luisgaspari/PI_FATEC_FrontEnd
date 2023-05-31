@@ -2,3 +2,19 @@ body {
     background-color: #ccc;
 }
 
+.btn1 {
+    width: 20%;
+}
+
+.subtittle{
+    color:black;
+}
+
+.prompt{
+    color: black;
+}
+
+.list{
+    color: black;
+    list-style-type: disc;
+}
