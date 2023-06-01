@@ -30,11 +30,20 @@ atualizarClientes()
 
 function procurarCliente(id){
     const client = fetch(`http://localhost:3000/clientes/${id}`)
-    .then(resposta => resposta.json())
+    .then(resposta => {
+        if(resposta.status != 200){
+            atualizarClientes()
+            throw erro("Cliente não existe")
+        }
+        console.log(resposta.status)
+        return resposta.json()
+    })
     .then(clienteDados => {
 
         const ul = document.getElementById('listaClientes')
         ul.innerHTML = ''
+
+        //botao Update
 
         const procCliente = document.createElement('p')
         procCliente.className = 'reg'
@@ -52,5 +61,12 @@ function procurarCliente(id){
         Endereço: ${clienteDados.endereco}`
         
         ul.appendChild(procCliente)
+
+        //botao Delete
+        const btnDelete = document.createElement('button')
+        btnDelete.innerText = "Remover"
+        btnDelete.addEventListener('click', () => deletarCliente(clienteDados.id))
+        ul.appendChild(btnDelete)
     })
+    .catch(erro => alert('Cliente não existe!'))
 }
