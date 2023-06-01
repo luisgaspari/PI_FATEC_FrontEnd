@@ -7,23 +7,50 @@ function atualizarClientes() {
     .then(resposta => resposta.json())
     .then(clientesDados => {
         clientesDados.forEach(cliente => {
+
             const par = document.createElement('p')
-            const li = document.createElement('li')
-            li.className = "list"
-            li.innerText = `ID: ${cliente.id} - Nome: ${cliente.nome}
-            E-mail: ${cliente.email}
-            Telefone: ${cliente.telefone}`
-            /*//botao Deletar
-            const btnDelete = document.createElement('button')
-            btnDelete.innerText = "Remover"
-            btnDelete.addEventListener('click', () => deletarCliente(cliente.id))
-            li.appendChild(btnDelete)
-            //*/
+            const form = document.createElement('input')
+
+            form.setAttribute("type", "submit");
+            form.setAttribute("class", "list")
+            form.addEventListener('click', () => procurarCliente(cliente.id))
+            form.setAttribute("value", `ID: ${cliente.id}
+Nome: ${cliente.nome}
+E-mail: ${cliente.email}
+Telefone: ${cliente.telefone}`)
+
             const ul = document.getElementById('listaClientes')
-            ul.appendChild(li)
+            ul.appendChild(form)
             ul.appendChild(par)
         }) 
     })
 }
 
 atualizarClientes()
+
+function procurarCliente(id){
+    const client = fetch(`http://localhost:3000/clientes/${id}`)
+    .then(resposta => resposta.json())
+    .then(clienteDados => {
+
+        const ul = document.getElementById('listaClientes')
+        ul.innerHTML = ''
+
+        const procCliente = document.createElement('p')
+        procCliente.className = 'reg'
+        procCliente.innerText = `ID: ${clienteDados.id}
+
+        Nome: ${clienteDados.nome}
+        CPF: ${clienteDados.cpf}
+        Telefone: ${clienteDados.telefone}
+        E-mail: ${clienteDados.email}
+
+        CEP: ${clienteDados.cep}
+        Estado: ${clienteDados.estado}
+        Cidade: ${clienteDados.cidade}
+        Bairro: ${clienteDados.bairro}
+        Endereço: ${clienteDados.endereco}`
+        
+        ul.appendChild(procCliente)
+    })
+}

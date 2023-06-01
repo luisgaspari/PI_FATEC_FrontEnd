@@ -17,4 +17,12 @@ body {
 .list{
     color: black;
     list-style-type: disc;
+    text-align: left;
+    width: 60%;
+}
+
+.reg{
+    color: black;
+    
+    text-align: left;
 }
