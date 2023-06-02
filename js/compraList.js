@@ -35,12 +35,12 @@ Total do Pedido: ${compra.totalPedido}
 atualizarCompras()
 
 function procurarCompras(id) {
-    const client = fetch(
+    const buy = fetch(
         `https://pi-fatec2s-maracujadesign.onrender.com/compras/${id}`
     )
         .then((resposta) => {
             if (resposta.status != 200) {
-                atualizarClientes()
+                atualizarCompras()
                 throw erro("Compra não existe")
             }
             return resposta.json()
@@ -55,7 +55,11 @@ function procurarCompras(id) {
             procCompra.className = "reg"
             procCompra.innerText = `
             ID: ${comprasDados.id}
-            Fornecedor: ${comprasDados.fornecedorId}`
+            Fornecedor: ${comprasDados.fornecedorId}
+            Data do Pedido: ${comprasDados.dataPedido}
+            Data do Entrega: ${comprasDados.dataEntrega}
+            Forma de Pagamento: ${comprasDados.formaPagamento}            
+            `
 
             ul.appendChild(procCompra)
             ul.appendChild(par)
@@ -65,7 +69,7 @@ function procurarCompras(id) {
             btnUpdate.className = "btn2"
             btnUpdate.innerText = "Alterar"
             btnUpdate.addEventListener("click", () =>
-                alterarCliente(comprasDados.id)
+                alterarCompras(comprasDados.id)
             )
             ul.appendChild(btnUpdate)
 
@@ -76,7 +80,7 @@ function procurarCompras(id) {
             btnDelete.className = "btn2"
             btnDelete.innerText = "Remover"
             btnDelete.addEventListener("click", () =>
-                deletarCliente(comprasDados.id)
+                deletarCompras(comprasDados.id)
             )
             ul.appendChild(btnDelete)
         })
@@ -94,7 +98,7 @@ function deletarCompras(id) {
 }
 
 function alterarCompras(id) {
-    const client = fetch(
+    const buy = fetch(
         `https://pi-fatec2s-maracujadesign.onrender.com/compras/${id}`
     )
         .then((resposta) => {
@@ -150,7 +154,7 @@ function alterarCompras(id) {
             attformaPagamento.setAttribute("placeholder", "formaPagamento")
             attformaPagamento.setAttribute("id", "formaPagamento")
             attformaPagamento.setAttribute("class", "form-control")
-            attformaPagamento.setAttribute("value", clienteDados.formaPagamento)
+            attformaPagamento.setAttribute("value", comprasDados.formaPagamento)
 
             let atttotalPedido = document.createElement("input")
             atttotalPedido.setAttribute("type", "text")
@@ -158,25 +162,20 @@ function alterarCompras(id) {
             atttotalPedido.setAttribute("placeholder", "totalPedido")
             atttotalPedido.setAttribute("id", "totalPedido")
             atttotalPedido.setAttribute("class", "form-control")
-            atttotalPedido.setAttribute("value", clienteDados.totalPedido)
+            atttotalPedido.setAttribute("value", comprasDados.totalPedido)
             const submit = document.createElement("button")
             submit.className = "btn2"
             submit.innerText = "Alterar"
-            /*submit.addEventListener('click', (event) => {
-            event.preventDefault()
-            console.log(event.target.nome)
-            //modificarCliente(event)
-        })*/
 
-            attCliente.appendChild(attId)
-            attCliente.appendChild(attfornecedorId)
-            attCliente.appendChild(attdataPedido)
-            attCliente.appendChild(attdataEntrega)
-            attCliente.appendChild(attformaPagamento)
-            attCliente.appendChild(par)
-            attCliente.appendChild(atttotalPedido)
-            attCliente.appendChild(submit)
-            attCliente.appendChild(par)
+            attCompra.appendChild(attId)
+            attCompra.appendChild(attfornecedorId)
+            attCompra.appendChild(attdataPedido)
+            attCompra.appendChild(attdataEntrega)
+            attCompra.appendChild(attformaPagamento)
+            attCompra.appendChild(par)
+            attCompra.appendChild(atttotalPedido)
+            attCompra.appendChild(submit)
+            attCompra.appendChild(par)
             ul.appendChild(attCompra)
 
             const Att = document.getElementById("formAtt")
