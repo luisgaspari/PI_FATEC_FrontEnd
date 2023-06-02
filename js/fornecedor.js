@@ -1,6 +1,5 @@
 function atualizaFornecedores() {
     document.getElementById('listaFornecedor').innerHTML = ''
-
     const fornecedores = fetch('http://localhost:3000/fornecedores')
         .then((resposta) => resposta.json())
         .then((fornecedores) => {
