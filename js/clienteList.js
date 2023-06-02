@@ -3,7 +3,7 @@ function atualizarClientes() {
     const ul = document.getElementById('listaClientes')
     ul.innerHTML = ''
 
-    const clientes = fetch('http://localhost:3000/clientes')
+    const clientes = fetch('https://pi-fatec2s-maracujadesign.onrender.com/clientes/')
     .then(resposta => resposta.json())
     .then(clientesDados => {
         clientesDados.forEach(cliente => {
@@ -29,7 +29,7 @@ Telefone: ${cliente.telefone}`)
 atualizarClientes()
 
 function procurarCliente(id){
-    const client = fetch(`http://localhost:3000/clientes/${id}`)
+    const client = fetch(`https://pi-fatec2s-maracujadesign.onrender.com/clientes/${id}`)
     .then(resposta => {
         if(resposta.status != 200){
             atualizarClientes()
@@ -80,7 +80,7 @@ function procurarCliente(id){
 }
 
 function deletarCliente(id){
-    fetch(`http://localhost:3000/clientes/${id}`,{
+    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/clientes/${id}`,{
         method: 'DELETE'
     })
     .then(resposta => {
@@ -93,7 +93,7 @@ function deletarCliente(id){
 }
 
 function alterarCliente(id){
-    const client = fetch(`http://localhost:3000/clientes/${id}`)
+    const client = fetch(`https://pi-fatec2s-maracujadesign.onrender.com/clientes/${id}`)
     .then(resposta => {
         if(resposta.status != 200){
             atualizarClientes()
@@ -111,7 +111,6 @@ function alterarCliente(id){
         const attCliente = document.createElement('form')
         attCliente.className = 'reg'
         attCliente.method = 'post'
-        //attCliente.action = 'submit.php'
         attCliente.id = 'formAtt'
         
         const attId = document.createElement('input')
@@ -251,7 +250,7 @@ function modificarCliente(form){
         endereco: form.target.endereco.value,
         complemento: form.target.complemento.value
     }
-    fetch(`http://localhost:3000/clientes/${form.target.id.value}`,{
+    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/clientes/${form.target.id.value}`,{
         method: 'PUT',
         headers: {'Content-type':'application/json'},
         body: JSON.stringify(clienteAtt)

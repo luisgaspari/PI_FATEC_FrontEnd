@@ -11,7 +11,7 @@ function criarCliente(form){
         endereco: form.target.endereco.value,
         complemento: form.target.complemento.value
     }
-    fetch(`http://localhost:3000/clientes/`,{
+    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/clientes`,{
         method: 'POST',
         headers: {'Content-type':'application/json'},
         body: JSON.stringify(clienteNovo)
