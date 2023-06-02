@@ -16,9 +16,13 @@ function atualizarCompras() {
                 form.addEventListener("click", () => procurarCompra(compra.id))
                 form.setAttribute(
                     "value",
-                    `ID: ${compra.id}
-ID: ${compra.id}
-Fornecedor: ${compra.fornecedorId}`
+                    `ID Compra: ${compra.id}
+Fornecedor: ${compra.fornecedorId}
+Data do Pedido: ${compra.dataPedido}
+Data do Entrega: ${compra.dataPedido}
+Forma de Pagamento: ${compra.formaPagamento}
+Total do Pedido: ${compra.totalPedido}
+`
                 )
 
                 const ul = document.getElementById("listaCompras")
