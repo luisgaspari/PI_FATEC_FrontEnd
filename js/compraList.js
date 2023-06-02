@@ -13,7 +13,7 @@ function atualizarCompras() {
 
                 form.setAttribute("type", "submit")
                 form.setAttribute("class", "list")
-                form.addEventListener("click", () => procurarCompra(compra.id))
+                form.addEventListener("click", () => procurarCompras(compra.id))
                 form.setAttribute(
                     "value",
                     `ID Compra: ${compra.id}
