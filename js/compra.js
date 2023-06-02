@@ -1,6 +1,7 @@
 function atualizarCompras() {
     const ul = document.getElementById("listaCompras")
     ul.innerHTML = ""
+
     const Compras = fetch(
         "https://pi-fatec2s-maracujadesign.onrender.com/compras"
     )
@@ -8,7 +9,7 @@ function atualizarCompras() {
         .then((ComprasDados) => {
             ComprasDados.forEach((compra) => {
                 const li = document.createElement("li")
-                li.innerText = `${compra.fornecedorId} - ${compra.dataPedido} - ${compra.dataEntrega} - ${compra.formaPagamento} - ${compra.totalPedido}`
+                li.innerText = `"Id Fornecedor:" = ${compra.fornecedorId} - "Data Pedido:" ${compra.dataPedido} - "Data Entrega:" ${compra.dataEntrega} "Forma de Pagamento:" ${compra.formaPagamento} -"Total do Pedido:" ${compra.totalPedido}`
                 //Botao deletar
                 const btnDelete = document.createElement("button")
                 btnDelete.innerText = "Remover"
