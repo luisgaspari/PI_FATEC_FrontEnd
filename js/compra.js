@@ -51,6 +51,7 @@ function cadastrarCompra(form) {
         atualizarCompras()
     })
 }
+
 function deletarCompra(id) {
     fetch(`https://pi-fatec2s-maracujadesign.onrender.com/compras/${id}`, {
         method: "DELETE",
@@ -73,6 +74,5 @@ function listarCompras() {
             return
         }
         alert("Listado com sucesso!!")
-        atualizarCompras()
     })
 }
