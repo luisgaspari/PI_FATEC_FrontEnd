@@ -38,18 +38,16 @@ function procurarCliente(id){
         console.log(resposta.status)
         return resposta.json()
     })
+    .catch(erro => alert('Cliente não existe!'))
     .then(clienteDados => {
 
         const ul = document.getElementById('listaClientes')
+        const par = document.createElement('p')
         ul.innerHTML = ''
-
-        //botao Update
 
         const procCliente = document.createElement('p')
         procCliente.className = 'reg'
-        procCliente.innerText = `ID: ${clienteDados.id}
-
-        Nome: ${clienteDados.nome}
+        procCliente.innerText = `Nome: ${clienteDados.nome}
         CPF: ${clienteDados.cpf}
         Telefone: ${clienteDados.telefone}
         E-mail: ${clienteDados.email}
@@ -58,15 +56,65 @@ function procurarCliente(id){
         Estado: ${clienteDados.estado}
         Cidade: ${clienteDados.cidade}
         Bairro: ${clienteDados.bairro}
-        Endereço: ${clienteDados.endereco}`
+        Endereço: ${clienteDados.endereco}
+        complemento: ${clienteDados.complemento}`
         
         ul.appendChild(procCliente)
+        ul.appendChild(par)
+
+        //botao Update
+        const btnUpdate = document.createElement('button')
+        btnUpdate.className = "btn2"
+        btnUpdate.innerText = "Atualizar"
+        btnUpdate.addEventListener('click', () => modificarCliente(clienteDados.id))
+        ul.appendChild(btnUpdate)
+
+        ul.appendChild(par)
 
         //botao Delete
         const btnDelete = document.createElement('button')
+        btnDelete.className = "btn2"
         btnDelete.innerText = "Remover"
         btnDelete.addEventListener('click', () => deletarCliente(clienteDados.id))
         ul.appendChild(btnDelete)
     })
-    .catch(erro => alert('Cliente não existe!'))
+}
+
+function deletarCliente(id){
+    fetch(`http://localhost:3000/clientes/${id}`,{
+        method: 'DELETE'
+    })
+    .then(resposta => {
+        if(resposta.status != 200){
+            alert('Erro ao excluir!')
+        }
+        atualizarClientes()
+    })
+}
+
+function modificarCliente(id){
+    const clienteAtt = {
+        nome: form.target.nome.value,
+        cpf: form.target.cpf.value,
+        telefone: form.target.telefone.value,
+        email: form.target.email.value,
+        cep: form.target.cep.value,
+        estado: form.target.estado.value,
+        cidade: form.target.cidade.value,
+        bairro: form.target.bairro.value,
+        endereco: form.target.endereco.value,
+        complemento: form.target.complemento.value
+    }
+    fetch(`http://localhost:3000/clientes/${id}`,{
+        method: 'PUT',
+        headers: {'Content-type':'application/json'},
+        body: JSON.stringify(clienteAtt)
+    })
+    .then(resposta => {
+        if(resposta.status != 200){
+            alert('Erro ao modificar!')
+        }
+        else alert('Modificado com sucesso!')
+        atualizarContatos()
+    })
 }
