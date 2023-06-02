@@ -210,6 +210,7 @@ function modificarCompra(form) {
         window.location.href = "compras.html"
     })
 }
+
 /*function atualizarCompras() {
     const ul = document.getElementById("listaCompras")
     ul.innerHTML = ""
