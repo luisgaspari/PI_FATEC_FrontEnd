@@ -65,10 +65,23 @@
 
         <div class="container">
             <h1>Página de Compras</h1>
+            <form id="formCadastro">
+                <label for="idfornecedor">Id Fornecedor:</label>
+                <input type="number" name="fornecedorId" id="fornecedorId" class="form-control">
+                <label for="dataPedido">data Pedido:</label>
+                <input type="date" name="dataPedido" id="dataPedido" class="form-control">
+                <label for="dataEntrega">data Entrega:</label>
+                <input type="date" name="dataEntrega" id="dataEntrega" class="form-control">
+                <label for="formaPagamento">Forma de Pagamento:</label>
+                <input type="text" name="formaPagamento" id="formaPagamento" class="form-control">
+                <label for="totalPedido">Total Pedido:</label>
+                <input type="number" name="totalPedido" id="totalPedido" class="form-control">
+                <input type="submit" value="Cadastrar" class="btn btn-primary">
+                <!--<input type="submit" id="btnUpdate" disabled value="Atualizar" class="btn btn-primary mt-2">-->
         </div>
-
+        <ul id="listaCompras"></ul>
         <!-- Trocar para o JS correto -->
-        <script src="js/index.js"></script>
+        <script src="js/compra.js"></script>
 
         <!-- JavaScript (Opcional) -->
         <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
@@ -89,3 +102,4 @@
         ></script>
     </body>
 </html>
+
