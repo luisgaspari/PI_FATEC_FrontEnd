@@ -1,3 +1,5 @@
+listaClientes()
+
 function atualizarPedidos() {
     document.getElementById('listaPedidos').innerHTML = ''
 
@@ -37,3 +39,45 @@ function atualizarPedidos() {
 }
 
 atualizarPedidos()
+
+function deletePedido(id) {
+    fetch(`http://localhost:3000/vendas/${id}`, {
+        method: 'DELETE',
+    }).then((resposta) => {
+        if (resposta.status != 200) {
+            alert('Erro ao excluir o Pedido!')
+        }
+        alert('Pedido excluído com sucesso!')
+        atualizarPedidos()
+    })
+}
+
+function listaClientes() {
+    const clientes = fetch('http://localhost:3000/clientes')
+        .then((resposta) => resposta.json())
+        .then((clientes) => {
+            var select = document.getElementById('selectCliente')
+            clientes.forEach((option) => {
+                var optionElement = document.createElement('option')
+                optionElement.text = `${option.id} - ${option.nome}`
+                optionElement.value = option.id
+                select.add(optionElement)
+            })
+        })
+}
+
+function mostraDadosCliente(id) {
+    const cliente = fetch(`http://localhost:3000/clientes/${id}`)
+        .then((resposta) => resposta.json())
+        .then((cliente) => {
+            document.getElementById('showTelefone').value = cliente.telefone
+            document.getElementById('showEmail').value = cliente.email
+            document.getElementById('showEndereco').value = cliente.endereco
+            document.getElementById('showComplemento').value = cliente.complemento
+            document.getElementById('showCidade').value = cliente.cidade
+            document.getElementById('showEstado').value = cliente.estado
+            document.getElementById('showCEP').value = cliente.cep
+        })
+}
+
+// document.getElementById('formNovoPedido').innerHTML = ''
