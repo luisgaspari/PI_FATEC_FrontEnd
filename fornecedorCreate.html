@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Maracujá Design</title>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="css/main.css" />
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <a class="navbar-brand" href="index.html">
+                <img
+                    src="img/maracuja_design.jpg"
+                    width="30"
+                    height="30"
+                    class="d-inline-block align-top"
+                    alt=""
+                />
+                Maracujá Design</a
+            >
+
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Alterna navegação"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html"
+                            >Home <span class="sr-only">(Página atual)</span></a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cliente.html">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="fornecedor.html"
+                            >Fornecedores</a
+                        >
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="produto.html">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="compras.html">Compras</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vendas.html">Vendas</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- codigo html -->
+            <h1 class="h1">Cadastro de Fornecedor</h1>
+            <form id="formCadastro">
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" class="form-control" />
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" name="cnpj" id="cnpj" class="form-control" />
+                <label for="telefone">Telefone:</label>
+                <input
+                    type="text"
+                    name="telefone"
+                    id="telefone"
+                    class="form-control"
+                />
+                <label for="cep">CEP:</label>
+                <input type="text" name="cep" id="cep" class="form-control" />
+                <label for="estado">Estado:</label>
+                <input
+                    type="estado"
+                    name="estado"
+                    id="estado"
+                    class="form-control"
+                />
+                <label for="cidade">Cidade:</label>
+                <input
+                    type="cidade"
+                    name="cidade"
+                    id="cidade"
+                    class="form-control"
+                />
+                <label for="bairro">Bairro:</label>
+                <input
+                    type="bairro"
+                    name="bairro"
+                    id="bairro"
+                    class="form-control"
+                />
+                <label for="endereco">Endereço:</label>
+                <input
+                    type="endereco"
+                    name="endereco"
+                    id="endereco"
+                    class="form-control"
+                />
+                <label for="complemento">Complemento:</label>
+                <input
+                    type="complemento"
+                    name="complemento"
+                    id="complemento"
+                    class="form-control"
+                />
+                <label for="email">E-mail::</label>
+                <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    class="form-control"
+                />
+                <input
+                    type="submit"
+                    value="Cadastrar"
+                    class="btn btn-primary mt-2"
+                />
+            </form>
+            <hr class="my-4" />
+            <ul id="listaContatos" class="list-group"></ul>
+            <hr class="my-4" />
+            <form id="formUpdate">
+                <label for="nome">Nome:</label>
+                <input
+                    type="text"
+                    name="nome"
+                    id="nomeUpdate"
+                    class="form-control"
+                />
+                <label for="cnpj">CNPJ:</label>
+                <input
+                    type="text"
+                    name="cnpj"
+                    id="cnpjUpdate"
+                    class="form-control"
+                />
+                <label for="telefone">Telefone:</label>
+                <input
+                    type="text"
+                    name="telefone"
+                    id="telefoneUpdate"
+                    class="form-control"
+                />
+                <label for="cep">CEP:</label>
+                <input
+                    type="text"
+                    name="cep"
+                    id="cepUpdate"
+                    class="form-control"
+                />
+                <label for="estado">Estado:</label>
+                <input
+                    type="estado"
+                    name="estado"
+                    id="estadoUpdate"
+                    class="form-control"
+                />
+                <label for="cidade">Cidade:</label>
+                <input
+                    type="cidade"
+                    name="cidade"
+                    id="cidadeUpdate"
+                    class="form-control"
+                />
+                <label for="bairro">Bairro:</label>
+                <input
+                    type="bairro"
+                    name="bairro"
+                    id="bairroUpdate"
+                    class="form-control"
+                />
+                <label for="endereco">Endereço:</label>
+                <input
+                    type="endereco"
+                    name="endereco"
+                    id="enderecoUpdate"
+                    class="form-control"
+                />
+                <label for="complemento">Complemento:</label>
+                <input
+                    type="complemento"
+                    name="complemento"
+                    id="complementoUpdate"
+                    class="form-control"
+                />
+                <label for="email">E-mail::</label>
+                <input
+                    type="email"
+                    name="email"
+                    id="emailUpdate"
+                    class="form-control"
+                />
+                <input
+                    type="submit"
+                    id="btnUpdate"
+                    disabled
+                    value="Atualizar"
+                    class="btn btn-primary mt-2"
+                />
+            </form>
+        </div>
+
+        <!-- Trocar para o JS correto -->
+        <script src="js/fornecedor.js"></script>
+
+        <!-- JavaScript (Opcional) -->
+        <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>
