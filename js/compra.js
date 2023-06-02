@@ -11,7 +11,7 @@ function criarCompras(form) {
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(compraNova),
     }).then((resposta) => {
-        if (resposta.status != 201) {
+        if (resposta.status != 201 && 200) {
             alert("Erro ao cadastrar!")
         } else {
             alert("Cadastrado com sucesso!")
@@ -19,6 +19,12 @@ function criarCompras(form) {
         }
     })
 }
+const formReg = document.getElementById("formCadastro")
+formReg.addEventListener("submit", (event) => {
+    event.preventDefault()
+    //console.log(event.target.nome.value)
+    criarCompras(event)
+})
 
 /*function atualizarCompras() {
     const ul = document.getElementById("listaCompras")
