@@ -43,7 +43,7 @@ function cadastrarCompra(form) {
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(compraNova),
     }).then((resposta) => {
-        if (resposta.status != 200) {
+        if (resposta.status != 200 && resposta.status != 201) {
             alert("Erro ao Cadastrar!!")
             return
         }
@@ -60,6 +60,19 @@ function deletarCompra(id) {
             return
         }
         alert("Removido com sucesso!!")
+        atualizarCompras()
+    })
+}
+
+function listarCompras() {
+    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/compras`, {
+        method: "GET",
+    }).then((resposta) => {
+        if (resposta.status != 200 && resposta.status != 201) {
+            alert("Erro ao Listar!!")
+            return
+        }
+        alert("Listado com sucesso!!")
         atualizarCompras()
     })
 }
