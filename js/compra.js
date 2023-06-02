@@ -1,4 +1,26 @@
-function atualizarCompras() {
+function criarCompras(form) {
+    const compraNova = {
+        fornecedorId: form.target.fornecedorId.value,
+        dataPedido: form.target.dataPedido.value,
+        dataEntrega: form.target.dataEntrega.value,
+        formaPagamento: form.target.formaPagamento.value,
+        totalPedido: form.target.totalPedido.value,
+    }
+    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/compras`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(compraNova),
+    }).then((resposta) => {
+        if (resposta.status != 201) {
+            alert("Erro ao cadastrar!")
+        } else {
+            alert("Cadastrado com sucesso!")
+            window.location.href = "compras.html"
+        }
+    })
+}
+
+/*function atualizarCompras() {
     const ul = document.getElementById("listaCompras")
     ul.innerHTML = ""
 
@@ -76,4 +98,4 @@ function listarCompras() {
         }
         alert("Listado com sucesso!!")
     })
-}
+}*/
