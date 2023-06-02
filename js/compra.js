@@ -11,7 +11,7 @@ function criarCompras(form) {
         headers: { "Content-type": "application/json" },
         body: JSON.stringify(compraNova),
     }).then((resposta) => {
-        if (resposta.status != 201 && 200) {
+        if (resposta.status != 200) {
             alert("Erro ao cadastrar!")
         } else {
             alert("Cadastrado com sucesso!")
