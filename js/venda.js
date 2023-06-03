@@ -3,7 +3,7 @@ listaClientes()
 function atualizarPedidos() {
     document.getElementById('listaPedidos').innerHTML = ''
 
-    const pedidos = fetch('http://localhost:3000/vendas')
+    const pedidos = fetch('https://pi-fatec2s-maracujadesign.onrender.com/vendas')
         .then((resposta) => resposta.json())
         .then((pedidos) => {
             pedidos.forEach((pedido) => {
@@ -40,8 +40,38 @@ function atualizarPedidos() {
 
 atualizarPedidos()
 
+document.getElementById('formNovoPedido').addEventListener('submit', function (event) {
+    event.preventDefault()
+    cadastrarPedido(event)
+})
+
+function cadastrarPedido(form) {
+    const pedido = {
+        clienteId: form.target.selectCliente.value,
+        dataPedido: form.target.dataPedido.value,
+        dataEntrega: form.target.dataEntrega.value,
+        formaPagamento: form.target.formaPagamento.value,
+        totalPedido: 0,
+    }
+
+    fetch('https://pi-fatec2s-maracujadesign.onrender.com/vendas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(pedido),
+    }).then((resposta) => {
+        if (resposta.status != 200 && resposta.status != 201) {
+            alert('Erro ao cadastrar o Pedido de Venda!')
+        } else {
+            alert('Pedido de Venda cadastrado com sucesso!')
+            document.getElementById('btnAddNovo').disabled = false
+        }
+        //form.target.reset()
+        atualizarPedidos()
+    })
+}
+
 function deletePedido(id) {
-    fetch(`http://localhost:3000/vendas/${id}`, {
+    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/vendas/${id}`, {
         method: 'DELETE',
     }).then((resposta) => {
         if (resposta.status != 200) {
@@ -53,7 +83,7 @@ function deletePedido(id) {
 }
 
 function listaClientes() {
-    const clientes = fetch('http://localhost:3000/clientes')
+    const clientes = fetch('https://pi-fatec2s-maracujadesign.onrender.com/clientes')
         .then((resposta) => resposta.json())
         .then((clientes) => {
             var select = document.getElementById('selectCliente')
@@ -67,7 +97,7 @@ function listaClientes() {
 }
 
 function mostraDadosCliente(id) {
-    const cliente = fetch(`http://localhost:3000/clientes/${id}`)
+    const cliente = fetch(`https://pi-fatec2s-maracujadesign.onrender.com/clientes/${id}`)
         .then((resposta) => resposta.json())
         .then((cliente) => {
             document.getElementById('showTelefone').value = cliente.telefone
@@ -80,4 +110,30 @@ function mostraDadosCliente(id) {
         })
 }
 
-// document.getElementById('formNovoPedido').innerHTML = ''
+function listaProdutos() {
+    const clientes = fetch('https://pi-fatec2s-maracujadesign.onrender.com/produtos')
+        .then((resposta) => resposta.json())
+        .then((produtos) => {
+            var select = document.getElementById('selectProduto')
+            produtos.forEach((option) => {
+                var optionElement = document.createElement('option')
+                optionElement.text = `${option.id} - ${option.descricao}`
+                optionElement.value = option.id
+                select.add(optionElement)
+            })
+        })
+}
+
+function mostraDadosProduto(id) {
+    const cliente = fetch(`https://pi-fatec2s-maracujadesign.onrender.com/produtos/${id}`)
+        .then((resposta) => resposta.json())
+        .then((produto) => {
+            document.getElementById('showTelefone').value = produto.descricao
+            // document.getElementById('showEmail').value = produto.xxx
+            // document.getElementById('showEndereco').value = produto.xxx
+            // document.getElementById('showComplemento').value = produto.xxx
+            // document.getElementById('showCidade').value = produto.xxx
+            // document.getElementById('showEstado').value = produto.xxx
+            // document.getElementById('showCEP').value = produto.xxx
+        })
+}
