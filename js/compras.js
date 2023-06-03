@@ -71,9 +71,9 @@ function cadastrarCompra(form) {
         body: JSON.stringify(compra),
     }).then((resposta) => {
         if (resposta.status != 200 && resposta.status != 201) {
-            alert("Erro ao cadastrar o Pedido de Venda!")
+            alert("Erro ao cadastrar o Pedido de Compra!")
         } else {
-            alert("Pedido de Venda cadastrado com sucesso!")
+            alert("Pedido de Compra cadastrado com sucesso!")
             document.getElementById("btnAddNovo").disabled = false
         }
         atualizarCompra()
@@ -81,7 +81,7 @@ function cadastrarCompra(form) {
 }
 
 function deleteCompra(id) {
-    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/vendas/${id}`, {
+    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/compras/${id}`, {
         method: "DELETE",
     }).then((resposta) => {
         if (resposta.status != 200) {
