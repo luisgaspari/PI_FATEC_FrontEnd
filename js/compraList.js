@@ -19,7 +19,7 @@ function atualizarCompras() {
                     `ID Compra: ${compra.id}
 Fornecedor: ${compra.fornecedorId}
 Data do Pedido: ${compra.dataPedido}
-Data do Entrega: ${compra.dataPedido}
+Data do Entrega: ${compra.dataEntrega}
 Forma de Pagamento: ${compra.formaPagamento}
 Total do Pedido: ${compra.totalPedido}
 `
