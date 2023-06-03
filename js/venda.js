@@ -40,6 +40,36 @@ function atualizarPedidos() {
 
 atualizarPedidos()
 
+document.getElementById('formNovoPedido').addEventListener('submit', function (event) {
+    event.preventDefault()
+    cadastrarPedido(event)
+})
+
+function cadastrarPedido(form) {
+    const pedido = {
+        clienteId: form.target.selectCliente.value,
+        dataPedido: form.target.dataPedido.value,
+        dataEntrega: form.target.dataEntrega.value,
+        formaPagamento: form.target.formaPagamento.value,
+        totalPedido: 0,
+    }
+
+    fetch('http://localhost:3000/vendas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(pedido),
+    }).then((resposta) => {
+        if (resposta.status != 200 && resposta.status != 201) {
+            alert('Erro ao cadastrar o Pedido de Venda!')
+        } else {
+            alert('Pedido de Venda cadastrado com sucesso!')
+            document.getElementById('btnAddNovo').disabled = false
+        }
+        //form.target.reset()
+        atualizarPedidos()
+    })
+}
+
 function deletePedido(id) {
     fetch(`http://localhost:3000/vendas/${id}`, {
         method: 'DELETE',
@@ -79,5 +109,3 @@ function mostraDadosCliente(id) {
             document.getElementById('showCEP').value = cliente.cep
         })
 }
-
-// document.getElementById('formNovoPedido').innerHTML = ''
