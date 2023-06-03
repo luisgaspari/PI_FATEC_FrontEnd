@@ -1,4 +1,4 @@
-listaCompras()
+listaFornecedores()
 
 function atualizarCompra() {
     document.getElementById("listaCompras").innerHTML = ""
