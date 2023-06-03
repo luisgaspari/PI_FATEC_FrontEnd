@@ -1,6 +1,6 @@
 function atualizaFornecedores() {
     document.getElementById('listaFornecedor').innerHTML = ''
-    const fornecedores = fetch('http://localhost:3000/fornecedores')
+    const fornecedores = fetch('https://pi-fatec2s-maracujadesign.onrender.com/fornecedores')
         .then((resposta) => resposta.json())
         .then((fornecedores) => {
             fornecedores.forEach((fornecedor) => {
@@ -48,7 +48,7 @@ function showFornecedor(fornecedor) {
 }
 
 function deleteFornecedor(id) {
-    fetch(`http://localhost:3000/fornecedores/${id}`, {
+    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/fornecedores/${id}`, {
         method: 'DELETE',
     }).then((resposta) => {
         if (resposta.status != 200) {
@@ -81,7 +81,7 @@ function cadastrarFornecedor(form) {
         email: form.target.email.value,
     }
 
-    fetch('http://localhost:3000/fornecedores', {
+    fetch('https://pi-fatec2s-maracujadesign.onrender.com/fornecedores', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(fornecedor),
@@ -115,7 +115,7 @@ function atualizarFornecedor(form) {
         email: form.target.emailUpdate.value,
     }
 
-    fetch(`http://localhost:3000/fornecedores/${form.target.idUpdate.value}`, {
+    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/fornecedores/${form.target.idUpdate.value}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(fornecedor),
