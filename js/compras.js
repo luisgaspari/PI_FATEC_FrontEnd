@@ -13,11 +13,15 @@ function atualizarCompra() {
                 formatData = data.toLocaleDateString("pt-BR", {
                     timeZone: "UTC",
                 })
+                data2 = new Date(compra.dataEntrega)
+                formatData2 = data2.toLocaleDateString("pt-BR", {
+                    timeZone: "UTC",
+                })
                 formatTotal = compra.totalPedido.toFixed(2)
                 const li = document.createElement("li")
                 li.className =
                     "list-group-item d-flex justify-content-between list-group-item-secondary"
-                li.innerText = `ID: ${compra.id} - Data: ${formatData} - Forma Pagto.: ${compra.formaPagamento} - Valor Total: ${formatTotal}
+                li.innerText = `ID: ${compra.id} - Data do Pedido: ${formatData} - Data de Entrega: ${formatData2} - Forma Pagto.: ${compra.formaPagamento} - Valor Total: ${formatTotal}
                 Cliente: ${compra.fornecedor.nome} - Telefone: ${compra.fornecedor.telefone} - Email: ${compra.fornecedor.email}`
 
                 const span = document.createElement("span")
