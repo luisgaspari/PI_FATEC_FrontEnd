@@ -54,9 +54,9 @@
         </nav>
 
         <div class="container">
-            <h1 class="h1">Pedidos de Compras</h1>
+            <h1 class="h1">Clientes</h1>
             <hr />
-            <input type="submit" value="Novo Pedido" class="btn btn-primary mt-2" data-toggle="modal" data-target="#novoModal" />
+            <input type="submit" value="Cadastrar Cliente" class="btn btn-primary mt-2" data-toggle="modal" data-target="#novoModal" />
 
             <div class="modal fade" id="novoModal" tabindex="-1" role="dialog" aria-labelledby="novoModalLabel">
                 <div class="modal-dialog modal-lg" role="document">
@@ -65,95 +65,61 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"></span>
                             </button>
-                            <h4 class="modal-title" id="novoModalLabel">Novo Pedido de Compras</h4>
+                            <h4 class="modal-title" id="novoModalLabel">Novo Cliente</h4>
                         </div>
                         <div class="modal-body">
-                            <form name="novoPedido" method="post" id="formNovoPedido">
-                                <input type="hidden" id="pedidoID" />
+                            <form name="formCadastro" method="post" id="formCadastro">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="selectFornecedor" class="col-form-label col-form-label-sm">fornecedor</label>
-                                        <select
-                                            id="selectFornecedor"
-                                            class="form-control form-control-sm"
-                                            onchange="javascript:mostraDadosFornecedores(this.value);"
-                                        >
-                                            <option hidden>Selecione um fornecedor</option>
-                                        </select>
+                                        <label for="nome" class="col-form-label col-form-label-sm">Nome:</label>
+                                        <input type="text" class="form-control form-control-sm" name="nome" id="nome" placeholder="Nome"/>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="showTelefone" class="col-form-label col-form-label-sm">Telefone</label>
-                                        <input type="text" class="form-control form-control-sm" id="showTelefone" readonly />
+                                    <div class="form-group col-md-6">
+                                        <label for="telefone" class="col-form-label col-form-label-sm">Telefone:</label>
+                                        <input type="text" name="telefone" id="telefone" class="form-control form-control-sm" placeholder="Telefone"/>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="showEmail" class="col-form-label col-form-label-sm">Email</label>
-                                        <input type="text" class="form-control form-control-sm" id="showEmail" readonly />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="showEndereco" class="col-form-label col-form-label-sm">Endereço</label>
-                                    <input
-                                        type="text"
-                                        class="form-control form-control-sm"
-                                        id="showEndereco"
-                                        placeholder="Rua, Avenida, Estrada, nº"
-                                        readonly
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <label for="showComplemento" class="col-form-label col-form-label-sm">Complemento</label>
-                                    <input
-                                        type="text"
-                                        class="form-control form-control-sm"
-                                        id="showComplemento"
-                                        placeholder="Apartamento, hotel, casa, etc."
-                                        readonly
-                                    />
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="showCidade" class="col-form-label col-form-label-sm">Cidade</label>
-                                        <input type="text" class="form-control form-control-sm" id="showCidade" readonly />
+                                        <label for="email" class="col-form-label col-form-label-sm">E-mail:</label>
+                                        <input type="text" name="email" id="email" class="form-control form-control-sm" placeholder="E-mail"/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="cpf" class="col-form-label col-form-label-sm">CPF:</label>
+                                        <input type="text" name="cpf" id="cpf" class="form-control form-control-sm" placeholder="CPF"/>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-2">
+                                        <label for="cep" class="col-form-label col-form-label-sm">CEP:</label>
+                                        <input type="text" name="cep" id="cep" class="form-control form-control-sm" placeholder="CEP"/>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="showEstado" class="col-form-label col-form-label-sm">Estado</label>
-                                        <input type="text" class="form-control form-control-sm" id="showEstado" readonly />
+                                        <label for="estado" class="col-form-label col-form-label-sm">Estado:</label>
+                                        <input type="text" name="estado" id="estado" class="form-control form-control-sm" placeholder="Estado"/>
                                     </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="showCEP" class="col-form-label col-form-label-sm">CEP</label>
-                                        <input type="text" class="form-control form-control-sm" id="showCEP" readonly />
+                                    <div class="form-group col-md-6">
+                                        <label for="cidade" class="col-form-label col-form-label-sm">Cidade:</label>
+                                        <input type="text" name="cidade" id="cidade" class="form-control form-control-sm" placeholder="Cidade"/>
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <label for="formaPagamento" class="col-form-label col-form-label-sm">Forma de Pagamento</label>
-                                        <select id="formaPagamento" class="form-control form-control-sm">
-                                            <option hidden>Selecione uma Forma de Pagamento</option>
-                                            <option>À Vista</option>
-                                            <option>Crédito</option>
-                                            <option>Débito</option>
-                                            <option>PIX</option>
-                                        </select>
+                                    <div class="form-group col-md-8">
+                                        <label for="endereco" class="col-form-label col-form-label-sm">Endereço:</label>
+                                        <input type="text" name="endereco" id="endereco" class="form-control form-control-sm" placeholder="Rua, Avenida, Estrada, nº"/>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="dataPedido" class="col-form-label col-form-label-sm">Data Pedido</label>
-                                        <input type="date" class="form-control form-control-sm" id="dataPedido" />
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="dataEntrega" class="col-form-label col-form-label-sm">Data Entrega</label>
-                                        <input type="date" class="form-control form-control-sm" id="dataEntrega" />
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="totalPedido" class="col-form-label col-form-label-sm">Valor Total</label>
-                                        <input type="number" class="form-control form-control-sm" id="totalPedido" readonly />
+                                    <div class="form-group col-md-4">
+                                        <label for="bairro" class="col-form-label col-form-label-sm">Bairro:</label>
+                                        <input type="text" name="bairro" id="bairro" class="form-control form-control-sm" placeholder="Bairro"/>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <h6>Produtos:</h6>
+                                <div class="form-group">
+                                    <label for="complemento" class="col-form-label col-form-label-sm">Complemento:</label>
+                                    <input type="text" name="complemento" id="complemento" class="form-control form-control-sm" placeholder="Complemento"/>
                                 </div>
+
                                 <div class="modal-footer">
                                     <button class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                    <button type="button" class="btn btn-primary" id="btnAddNovo" disabled>Adicionar Produtos</button>
                                     <input type="submit" value="Salvar" class="btn btn-primary" />
                                 </div>
                             </form>
@@ -169,92 +135,144 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"></span>
                             </button>
-                            <h4 class="modal-title" id="updateModalLabel">Novo Pedido de Compras</h4>
+                            <h4 class="modal-title" id="updateModalLabel">Atualizar Cliente</h4>
                         </div>
                         <div class="modal-body">
-                            <form name="updatePedido" method="post" id="formUpdatePedido">
-                                <input type="hidden" id="updateID" />
+                            <form name="formUpdate" method="post" id="formAtt">
                                 <div class="form-row">
+                                    <input type="hidden" id="attId">
                                     <div class="form-group col-md-6">
-                                        <label for="updateFornecedor" class="col-form-label col-form-label-sm">Fornecedor</label>
-                                        <input type="text" class="form-control form-control-sm" id="updateFornecedor" />
+                                        <label for="nome" class="col-form-label col-form-label-sm">Nome:</label>
+                                        <input type="text" class="form-control form-control-sm" name="nome" id="attNome" placeholder="Nome"/>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="updateTelefone" class="col-form-label col-form-label-sm">Telefone</label>
-                                        <input type="text" class="form-control form-control-sm" id="updateTelefone" />
+                                    <div class="form-group col-md-6">
+                                        <label for="telefone" class="col-form-label col-form-label-sm">Telefone:</label>
+                                        <input type="text" name="telefone" id="attTelefone" class="form-control form-control-sm" placeholder="Telefone"/>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="updateEmail" class="col-form-label col-form-label-sm">Email</label>
-                                        <input type="text" class="form-control form-control-sm" id="updateEmail" />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="updateEndereco" class="col-form-label col-form-label-sm">Endereço</label>
-                                    <input type="text" class="form-control form-control-sm" id="updateEndereco" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="updateComplemento" class="col-form-label col-form-label-sm">Complemento</label>
-                                    <input type="text" class="form-control form-control-sm" id="updateComplemento" />
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="updateCidade" class="col-form-label col-form-label-sm">Cidade</label>
-                                        <input type="text" class="form-control form-control-sm" id="updateCidade" />
+                                        <label for="email" class="col-form-label col-form-label-sm">E-mail:</label>
+                                        <input type="text" name="email" id="attEmail" class="form-control form-control-sm" placeholder="E-mail"/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="cpf" class="col-form-label col-form-label-sm">CPF:</label>
+                                        <input type="text" name="cpf" id="attCpf" class="form-control form-control-sm" placeholder="CPF"/>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-2">
+                                        <label for="cep" class="col-form-label col-form-label-sm">CEP:</label>
+                                        <input type="text" name="cep" id="attCep" class="form-control form-control-sm" placeholder="CEP"/>
                                     </div>
                                     <div class="form-group col-md-4">
-                                        <label for="updateEstado" class="col-form-label col-form-label-sm">Estado</label>
-                                        <input type="text" class="form-control form-control-sm" id="updateEstado" />
+                                        <label for="estado" class="col-form-label col-form-label-sm">Estado:</label>
+                                        <input type="text" name="estado" id="attEstado" class="form-control form-control-sm" placeholder="Estado"/>
                                     </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="updateCEP" class="col-form-label col-form-label-sm">CEP</label>
-                                        <input type="text" class="form-control form-control-sm" id="updateCEP" />
+                                    <div class="form-group col-md-6">
+                                        <label for="cidade" class="col-form-label col-form-label-sm">Cidade:</label>
+                                        <input type="text" name="cidade" id="attCidade" class="form-control form-control-sm" placeholder="Cidade"/>
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <label for="updateFormaPagamento" class="col-form-label col-form-label-sm"
-                                            >Forma de Pagamento</label
-                                        >
-                                        <select id="updateFormaPagamento" class="form-control form-control-sm">
-                                            <option hidden>Selecione uma Forma de Pagamento</option>
-                                            <option>À Vista</option>
-                                            <option>Crédito</option>
-                                            <option>Débito</option>
-                                            <option>PIX</option>
-                                        </select>
+                                    <div class="form-group col-md-8">
+                                        <label for="endereco" class="col-form-label col-form-label-sm">Endereço:</label>
+                                        <input type="text" name="endereco" id="attEndereco" class="form-control form-control-sm" placeholder="Rua, Avenida, Estrada, nº"/>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="updateDataPedido" class="col-form-label col-form-label-sm">Data Pedido</label>
-                                        <input type="date" class="form-control form-control-sm" id="updateDataPedido" />
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="updateDataEntrega" class="col-form-label col-form-label-sm">Data Entrega</label>
-                                        <input type="date" class="form-control form-control-sm" id="updateDataEntrega" />
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="updateValorTotal" class="col-form-label col-form-label-sm">Valor Total</label>
-                                        <input type="text" class="form-control form-control-sm" id="updateValorTotal" readonly />
+                                    <div class="form-group col-md-4">
+                                        <label for="bairro" class="col-form-label col-form-label-sm">Bairro:</label>
+                                        <input type="text" name="bairro" id="attBairro" class="form-control form-control-sm" placeholder="Bairro"/>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <h6>Produtos:</h6>
+                                <div class="form-group">
+                                    <label for="complemento" class="col-form-label col-form-label-sm">Complemento:</label>
+                                    <input type="text" name="complemento" id="attComplemento" class="form-control form-control-sm" placeholder="Complemento"/>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <input type="submit" value="Salvar" class="btn btn-primary" />
                                 </div>
                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary" id="btnAddUpdate">Adicionar Produtos</button>
-                            <button type="button" id="save" class="btn btn-primary" onclick="javascript:createCompra();">
-                                Salvar Dados
-                            </button>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <div class="modal fade" id="listModal" tabindex="-1" role="dialog" aria-labelledby="listModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                            <h4 class="modal-title" id="listModalLabel">Cliente</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form name="formList" method="post" id="formList">
+                                <input type="hidden" id="listId">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="nome" class="col-form-label col-form-label-sm">Nome:</label>
+                                        <input type="text" class="form-control form-control-sm" name="nome" id="listNome" placeholder="Nome" readonly/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="telefone" class="col-form-label col-form-label-sm">Telefone:</label>
+                                        <input type="text" name="telefone" id="listTelefone" class="form-control form-control-sm" placeholder="Telefone" readonly/>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="email" class="col-form-label col-form-label-sm">E-mail:</label>
+                                        <input type="text" name="email" id="listEmail" class="form-control form-control-sm" placeholder="E-mail" readonly/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="cpf" class="col-form-label col-form-label-sm">CPF:</label>
+                                        <input type="text" name="cpf" id="listCpf" class="form-control form-control-sm" placeholder="CPF" readonly/>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-2">
+                                        <label for="cep" class="col-form-label col-form-label-sm">CEP:</label>
+                                        <input type="text" name="cep" id="listCep" class="form-control form-control-sm" placeholder="CEP" readonly/>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="estado" class="col-form-label col-form-label-sm">Estado:</label>
+                                        <input type="text" name="estado" id="listEstado" class="form-control form-control-sm" placeholder="Estado" readonly/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="cidade" class="col-form-label col-form-label-sm">Cidade:</label>
+                                        <input type="text" name="cidade" id="listCidade" class="form-control form-control-sm" placeholder="Cidade" readonly/>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-8">
+                                        <label for="endereco" class="col-form-label col-form-label-sm">Endereço:</label>
+                                        <input type="text" name="endereco" id="listEndereco" class="form-control form-control-sm" placeholder="Rua, Avenida, Estrada, nº" readonly/>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="bairro" class="col-form-label col-form-label-sm">Bairro:</label>
+                                        <input type="text" name="bairro" id="listBairro" class="form-control form-control-sm" placeholder="Bairro" readonly/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="complemento" class="col-form-label col-form-label-sm">Complemento:</label>
+                                    <input type="text" name="complemento" id="listComplemento" class="form-control form-control-sm" placeholder="Complemento" readonly/>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <hr />
             <div>
-                <ul id="listaCompras" class="list-group list-group-flush"></ul>
+                <ul id="listaClientes" class="list-group list-group-flush"></ul>
             </div>
             <hr />
         </div>
