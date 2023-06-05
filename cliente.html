@@ -15,13 +15,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-white">
             <a class="navbar-brand" href="index.html">
-                <img
-                    src="img/maracuja_design.jpg"
-                    width="30"
-                    height="30"
-                    class="d-inline-block align-top"
-                    alt=""
-                />
+                <img src="img/maracuja_design.jpg" width="30" height="30" class="d-inline-block align-top" alt="" />
                 Maracujá Design</a
             >
             <button
@@ -38,24 +32,20 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html"
-                            >Home <span class="sr-only">(Página atual)</span></a
-                        >
+                        <a class="nav-link" href="index.html">Home <span class="sr-only">(Página atual)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="cliente.html">Clientes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="fornecedor.html"
-                            >Fornecedores</a
-                        >
+                        <a class="nav-link" href="fornecedor.html">Fornecedores</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="produto.html">Produtos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="compras.html">Compras</a>
-                    </li>
+                    </li>                    
                     <li class="nav-item">
                         <a class="nav-link" href="vendas.html">Vendas</a>
                     </li>
@@ -64,22 +54,213 @@
         </nav>
 
         <div class="container">
-            <h1>Clientes</h1>
-            <hr>
+            <h1 class="h1">Pedidos de Compras</h1>
+            <hr />
+            <input type="submit" value="Novo Pedido" class="btn btn-primary mt-2" data-toggle="modal" data-target="#novoModal" />
 
-            <form action="clienteList.html">
-                <input type="submit" class="btn1" value="Listar Clientes" />
-            </form>
+            <div class="modal fade" id="novoModal" tabindex="-1" role="dialog" aria-labelledby="novoModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                            <h4 class="modal-title" id="novoModalLabel">Novo Pedido de Compras</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form name="novoPedido" method="post" id="formNovoPedido">
+                                <input type="hidden" id="pedidoID" />
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="selectFornecedor" class="col-form-label col-form-label-sm">fornecedor</label>
+                                        <select
+                                            id="selectFornecedor"
+                                            class="form-control form-control-sm"
+                                            onchange="javascript:mostraDadosFornecedores(this.value);"
+                                        >
+                                            <option hidden>Selecione um fornecedor</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="showTelefone" class="col-form-label col-form-label-sm">Telefone</label>
+                                        <input type="text" class="form-control form-control-sm" id="showTelefone" readonly />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="showEmail" class="col-form-label col-form-label-sm">Email</label>
+                                        <input type="text" class="form-control form-control-sm" id="showEmail" readonly />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="showEndereco" class="col-form-label col-form-label-sm">Endereço</label>
+                                    <input
+                                        type="text"
+                                        class="form-control form-control-sm"
+                                        id="showEndereco"
+                                        placeholder="Rua, Avenida, Estrada, nº"
+                                        readonly
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label for="showComplemento" class="col-form-label col-form-label-sm">Complemento</label>
+                                    <input
+                                        type="text"
+                                        class="form-control form-control-sm"
+                                        id="showComplemento"
+                                        placeholder="Apartamento, hotel, casa, etc."
+                                        readonly
+                                    />
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="showCidade" class="col-form-label col-form-label-sm">Cidade</label>
+                                        <input type="text" class="form-control form-control-sm" id="showCidade" readonly />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="showEstado" class="col-form-label col-form-label-sm">Estado</label>
+                                        <input type="text" class="form-control form-control-sm" id="showEstado" readonly />
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="showCEP" class="col-form-label col-form-label-sm">CEP</label>
+                                        <input type="text" class="form-control form-control-sm" id="showCEP" readonly />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="formaPagamento" class="col-form-label col-form-label-sm">Forma de Pagamento</label>
+                                        <select id="formaPagamento" class="form-control form-control-sm">
+                                            <option hidden>Selecione uma Forma de Pagamento</option>
+                                            <option>À Vista</option>
+                                            <option>Crédito</option>
+                                            <option>Débito</option>
+                                            <option>PIX</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="dataPedido" class="col-form-label col-form-label-sm">Data Pedido</label>
+                                        <input type="date" class="form-control form-control-sm" id="dataPedido" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="dataEntrega" class="col-form-label col-form-label-sm">Data Entrega</label>
+                                        <input type="date" class="form-control form-control-sm" id="dataEntrega" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="totalPedido" class="col-form-label col-form-label-sm">Valor Total</label>
+                                        <input type="number" class="form-control form-control-sm" id="totalPedido" readonly />
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <h6>Produtos:</h6>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button type="button" class="btn btn-primary" id="btnAddNovo" disabled>Adicionar Produtos</button>
+                                    <input type="submit" value="Salvar" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <p></p>
+            <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"></span>
+                            </button>
+                            <h4 class="modal-title" id="updateModalLabel">Novo Pedido de Compras</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form name="updatePedido" method="post" id="formUpdatePedido">
+                                <input type="hidden" id="updateID" />
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="updateFornecedor" class="col-form-label col-form-label-sm">Fornecedor</label>
+                                        <input type="text" class="form-control form-control-sm" id="updateFornecedor" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="updateTelefone" class="col-form-label col-form-label-sm">Telefone</label>
+                                        <input type="text" class="form-control form-control-sm" id="updateTelefone" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="updateEmail" class="col-form-label col-form-label-sm">Email</label>
+                                        <input type="text" class="form-control form-control-sm" id="updateEmail" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateEndereco" class="col-form-label col-form-label-sm">Endereço</label>
+                                    <input type="text" class="form-control form-control-sm" id="updateEndereco" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="updateComplemento" class="col-form-label col-form-label-sm">Complemento</label>
+                                    <input type="text" class="form-control form-control-sm" id="updateComplemento" />
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="updateCidade" class="col-form-label col-form-label-sm">Cidade</label>
+                                        <input type="text" class="form-control form-control-sm" id="updateCidade" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="updateEstado" class="col-form-label col-form-label-sm">Estado</label>
+                                        <input type="text" class="form-control form-control-sm" id="updateEstado" />
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="updateCEP" class="col-form-label col-form-label-sm">CEP</label>
+                                        <input type="text" class="form-control form-control-sm" id="updateCEP" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="updateFormaPagamento" class="col-form-label col-form-label-sm"
+                                            >Forma de Pagamento</label
+                                        >
+                                        <select id="updateFormaPagamento" class="form-control form-control-sm">
+                                            <option hidden>Selecione uma Forma de Pagamento</option>
+                                            <option>À Vista</option>
+                                            <option>Crédito</option>
+                                            <option>Débito</option>
+                                            <option>PIX</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="updateDataPedido" class="col-form-label col-form-label-sm">Data Pedido</label>
+                                        <input type="date" class="form-control form-control-sm" id="updateDataPedido" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="updateDataEntrega" class="col-form-label col-form-label-sm">Data Entrega</label>
+                                        <input type="date" class="form-control form-control-sm" id="updateDataEntrega" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="updateValorTotal" class="col-form-label col-form-label-sm">Valor Total</label>
+                                        <input type="text" class="form-control form-control-sm" id="updateValorTotal" readonly />
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <h6>Produtos:</h6>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary" id="btnAddUpdate">Adicionar Produtos</button>
+                            <button type="button" id="save" class="btn btn-primary" onclick="javascript:createCompra();">
+                                Salvar Dados
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <form action="clienteCreate.html">
-                <input type="submit" class="btn1" value="Novo Cliente" />
-            </form>
-            
+            <hr />
+            <div>
+                <ul id="listaCompras" class="list-group list-group-flush"></ul>
+            </div>
+            <hr />
         </div>
 
         <!-- Trocar para o JS correto -->
+        <script src="js/cliente.js"></script>
 
         <!-- JavaScript (Opcional) -->
         <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
