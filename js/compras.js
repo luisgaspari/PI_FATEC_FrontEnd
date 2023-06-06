@@ -160,3 +160,115 @@ function mostraDadosProduto(id) {
             // document.getElementById('showCEP').value = produto.xxx
         })
 }
+function alterarCompras(id) {
+    const comprasDados = fetch(
+        `https://pi-fatec2s-maracujadesign.onrender.com/compras/${id}`
+    )
+        .then((resposta) => {
+            if (resposta.status != 200) {
+                atualizarCompra()
+                throw erro("Compra não existe")
+            }
+            return resposta.json()
+        })
+        .catch((erro) => alert("Compra não existe!"))
+        .then((comprasDados) => {
+            const ul = document.getElementById("listaCompras")
+            const par = document.createElement("p")
+            ul.innerHTML = ""
+
+            const attCompra = document.createElement("form")
+            attCompra.className = "reg"
+            attCompra.method = "post"
+            attCompra.id = "formAtt"
+
+            const attId = document.createElement("input")
+            attId.type = "hidden"
+            attId.id = "id"
+            attId.value = comprasDados.id
+
+            let attfornecedorId = document.createElement("input")
+            attfornecedorId.setAttribute("type", "number")
+            attfornecedorId.setAttribute("name", "fornecedorId")
+            attfornecedorId.setAttribute("placeholder", "fornecedorId")
+            attfornecedorId.setAttribute("id", "fornecedorId")
+            attfornecedorId.setAttribute("class", "form-control")
+            attfornecedorId.setAttribute("value", comprasDados.fornecedorId)
+
+            let attdataPedido = document.createElement("input")
+            attdataPedido.setAttribute("type", "date")
+            attdataPedido.setAttribute("name", "dataPedido")
+            attdataPedido.setAttribute("placeholder", "dataPedido")
+            attdataPedido.setAttribute("id", "dataPedido")
+            attdataPedido.setAttribute("class", "form-control")
+            attdataPedido.setAttribute("value", comprasDados.dataPedido)
+
+            let attdataEntrega = document.createElement("input")
+            attdataEntrega.setAttribute("type", "date")
+            attdataEntrega.setAttribute("name", "dataEntrega")
+            attdataEntrega.setAttribute("placeholder", "dataEntrega")
+            attdataEntrega.setAttribute("id", "dataEntrega")
+            attdataEntrega.setAttribute("class", "form-control")
+            attdataEntrega.setAttribute("value", comprasDados.dataEntrega)
+
+            let attformaPagamento = document.createElement("input")
+            attformaPagamento.setAttribute("type", "text")
+            attformaPagamento.setAttribute("name", "formaPagamento")
+            attformaPagamento.setAttribute("placeholder", "formaPagamento")
+            attformaPagamento.setAttribute("id", "formaPagamento")
+            attformaPagamento.setAttribute("class", "form-control")
+            attformaPagamento.setAttribute("value", comprasDados.formaPagamento)
+
+            let atttotalPedido = document.createElement("input")
+            atttotalPedido.setAttribute("type", "text")
+            atttotalPedido.setAttribute("name", "totalPedido")
+            atttotalPedido.setAttribute("placeholder", "totalPedido")
+            atttotalPedido.setAttribute("id", "totalPedido")
+            atttotalPedido.setAttribute("class", "form-control")
+            atttotalPedido.setAttribute("value", comprasDados.totalPedido)
+            const submit = document.createElement("button")
+            submit.className = "btn2"
+            submit.innerText = "Alterar"
+
+            attCompra.appendChild(attId)
+            attCompra.appendChild(attfornecedorId)
+            attCompra.appendChild(attdataPedido)
+            attCompra.appendChild(attdataEntrega)
+            attCompra.appendChild(attformaPagamento)
+            attCompra.appendChild(par)
+            attCompra.appendChild(atttotalPedido)
+            attCompra.appendChild(submit)
+            attCompra.appendChild(par)
+            ul.appendChild(attCompra)
+
+            const Att = document.getElementById("formAtt")
+            Att.addEventListener("submit", (event) => {
+                event.preventDefault()
+                //console.log(event.target.id.value)
+                modificarCompra(event)
+            })
+        })
+}
+
+function modificarCompra(form) {
+    const compraAtt = {
+        fornecedorId: form.target.fornecedorId.value,
+        dataPedido: form.target.dataPedido.value,
+        dataEntrega: form.target.dataEntrega.value,
+        formaPagamento: form.target.formaPagamento.value,
+        totalPedido: form.target.totalPedido.value,
+    }
+    fetch(
+        `https://pi-fatec2s-maracujadesign.onrender.com/compras/${form.target.id.value}`,
+        {
+            method: "PUT",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify(compraAtt),
+        }
+    ).then((resposta) => {
+        if (resposta.status != 200) {
+            alert("Erro ao modificar!")
+        } else alert("Modificado com sucesso!")
+        window.location.href = "compras.html"
+    })
+}
