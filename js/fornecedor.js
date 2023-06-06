@@ -1,132 +1,183 @@
-function atualizaFornecedores() {
-    document.getElementById('listaFornecedor').innerHTML = ''
-    const fornecedores = fetch('https://pi-fatec2s-maracujadesign.onrender.com/fornecedores')
-        .then((resposta) => resposta.json())
-        .then((fornecedores) => {
-            fornecedores.forEach((fornecedor) => {
-                const li = document.createElement('li')
-                li.className = 'list-group-item d-flex justify-content-between list-group-item-secondary'
-                li.innerText = `ID: ${fornecedor.id} - Nome: ${fornecedor.nome} - CNPJ: ${fornecedor.cnpj} - Telefone: ${fornecedor.telefone} - Email: ${fornecedor.email}
-                Endereço: ${fornecedor.endereco} - ${fornecedor.bairro} - ${fornecedor.cidade} - ${fornecedor.estado} - ${fornecedor.cep}`
+function atualizarFornecedores() {
 
-                const span = document.createElement('span')
+    const ul = document.getElementById('listaFornecedores')
+    ul.innerHTML = ''
 
-                // Adiciona um botão de excluir para cada contato
-                const botaoExcluir = document.createElement('button')
-                botaoExcluir.textContent = 'Excluir'
-                botaoExcluir.className = 'btn btn-danger btn-sm'
-                botaoExcluir.addEventListener('click', () => deleteFornecedor(fornecedor.id))
-                span.appendChild(botaoExcluir)
+    const fornecedores = fetch('https://pi-fatec2s-maracujadesign.onrender.com/fornecedores/')
+    .then(resposta => resposta.json())
+    .then(fornecedoresDados => {
+        fornecedoresDados.forEach(fornecedor => {
 
-                // Adiciona um botão de atualizar para cada contato
-                const botaoAtualizar = document.createElement('button')
-                botaoAtualizar.textContent = 'Atualizar'
-                botaoAtualizar.className = 'btn btn-warning btn-sm'
-                botaoAtualizar.addEventListener('click', () => showFornecedor(fornecedor))
-                span.appendChild(botaoAtualizar)
+            const div = document.createElement('div')
+            const li = document.createElement('input')
+            li.setAttribute("class", "list-group-item d-flex justify-content-between list-group-item-secondary btn1")
+            li.setAttribute("type", "submit");
+            li.setAttribute('data-toggle', 'modal')
+            li.setAttribute('data-target', '#listModal')
+            li.addEventListener('click', () => listarForecedor(fornecedor.id))
+            li.value = `ID: ${fornecedor.id}
+Nome: ${fornecedor.nome}
+E-mail: ${fornecedor.email}
+Telefone: ${fornecedor.telefone}`
 
-                li.appendChild(span)
+            div.appendChild(li)
 
-                document.getElementById('listaFornecedor').appendChild(li)
-            })
-        })
-}
+            // Adiciona um botão de excluir para cada fornecedor
+            const botaoExcluir = document.createElement("button")
+            botaoExcluir.textContent = "Excluir"
+            botaoExcluir.className = "btn btn-danger btn-sm btn2"
+            botaoExcluir.addEventListener('click', () => deletarForecedor(fornecedor.id))
+            div.appendChild(botaoExcluir)
 
-function showFornecedor(fornecedor) {
-    document.getElementById('nomeUpdate').value = fornecedor.nome
-    document.getElementById('cnpjUpdate').value = fornecedor.cnpj
-    document.getElementById('telefoneUpdate').value = fornecedor.telefone
-    document.getElementById('cepUpdate').value = fornecedor.cep
-    document.getElementById('estadoUpdate').value = fornecedor.estado
-    document.getElementById('cidadeUpdate').value = fornecedor.cidade
-    document.getElementById('bairroUpdate').value = fornecedor.bairro
-    document.getElementById('enderecoUpdate').value = fornecedor.endereco
-    document.getElementById('complementoUpdate').value = fornecedor.complemento
-    document.getElementById('emailUpdate').value = fornecedor.email
-    document.getElementById('idUpdate').value = fornecedor.id
-    document.getElementById('btnUpdate').disabled = false
-}
+            // Adiciona um botão de atualizar para cada fornecedor
+            const botaoAtualizar = document.createElement("button")
+            botaoAtualizar.textContent = "Atualizar"
+            botaoAtualizar.className = "btn btn-warning btn-sm btn2"
+            botaoAtualizar.setAttribute('data-toggle', 'modal')
+            botaoAtualizar.setAttribute('data-target', '#updateModal')
+            botaoAtualizar.addEventListener("click", () => procurarFornecedor(fornecedor.id))
+            div.appendChild(botaoAtualizar)
 
-function deleteFornecedor(id) {
-    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/fornecedores/${id}`, {
-        method: 'DELETE',
-    }).then((resposta) => {
-        if (resposta.status != 200) {
-            alert('Erro ao excluir fornecedor!')
-        } else {
-            alert('Fornecedor excluído com sucesso!')
-        }
-        atualizaFornecedores()
+            document.getElementById("listaFornecedores").appendChild(div)
+        }) 
     })
 }
 
-atualizaFornecedores()
+function procurarFornecedor(id){
+    const client = fetch(`https://pi-fatec2s-maracujadesign.onrender.com/fornecedores/${id}`)
+    .then(resposta => {
+        if(resposta.status != 200){
+            atualizarFornecedores()
+            throw erro("Fornecedor não existe")
+        }
+        return resposta.json()
+    })
+    .catch(erro => alert('Fornecedor não existe!'))
+    .then(fornecedorDados => {
 
-document.getElementById('formCadastro').addEventListener('submit', function (event) {
-    event.preventDefault()
-    cadastrarFornecedor(event)
-})
+        document.getElementById('attId').value = fornecedorDados.id
+        document.getElementById('attNome').value = fornecedorDados.nome
+        document.getElementById('attTelefone').value = fornecedorDados.telefone
+        document.getElementById('attEmail').value = fornecedorDados.email
+        document.getElementById('attCnpj').value = fornecedorDados.cnpj
+        document.getElementById('attCep').value = fornecedorDados.cep
+        document.getElementById('attEstado').value = fornecedorDados.estado
+        document.getElementById('attCidade').value = fornecedorDados.cidade
+        document.getElementById('attBairro').value = fornecedorDados.bairro
+        document.getElementById('attEndereco').value = fornecedorDados.endereco
+        document.getElementById('attComplemento').value = fornecedorDados.complemento
+    })
+}
 
-function cadastrarFornecedor(form) {
-    const fornecedor = {
+function listarForecedor(id){
+    const client = fetch(`https://pi-fatec2s-maracujadesign.onrender.com/fornecedores/${id}`)
+    .then(resposta => {
+        if(resposta.status != 200){
+            atualizarFornecedores()
+            throw erro("Fornecedor não existe")
+        }
+        return resposta.json()
+    })
+    .catch(erro => alert('Fornecedor não existe!'))
+    .then(fornecedorDados => {
+
+        document.getElementById('listId').value = fornecedorDados.id
+        document.getElementById('listNome').value = fornecedorDados.nome
+        document.getElementById('listTelefone').value = fornecedorDados.telefone
+        document.getElementById('listEmail').value = fornecedorDados.email
+        document.getElementById('listCnpj').value = fornecedorDados.cnpj
+        document.getElementById('listCep').value = fornecedorDados.cep
+        document.getElementById('listEstado').value = fornecedorDados.estado
+        document.getElementById('listCidade').value = fornecedorDados.cidade
+        document.getElementById('listBairro').value = fornecedorDados.bairro
+        document.getElementById('listEndereco').value = fornecedorDados.endereco
+        document.getElementById('listComplemento').value = fornecedorDados.complemento
+    })
+}
+
+function deletarForecedor(id){
+    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/fornecedores/${id}`,{
+        method: 'DELETE'
+    })
+    .then(resposta => {
+        if(resposta.status != 200){
+            alert('Erro ao excluir!')
+        }
+        else alert('Excluído com sucesso!')
+        atualizarFornecedores()
+    })
+}
+
+function modificarFornecedor(form){
+    const fornecedorAtt = {
+        nome: form.target.attNome.value,
+        cnpj: form.target.attCnpj.value,
+        telefone: form.target.attTelefone.value,
+        email: form.target.attEmail.value,
+        cep: form.target.attCep.value,
+        estado: form.target.attEstado.value,
+        cidade: form.target.attCidade.value,
+        bairro: form.target.attBairro.value,
+        endereco: form.target.attEndereco.value,
+        complemento: form.target.attComplemento.value
+    }
+    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/fornecedores/${form.target.attId.value}`,{
+        method: 'PUT',
+        headers: {'Content-type':'application/json'},
+        body: JSON.stringify(fornecedorAtt)
+    })
+    .then(resposta => {
+        if(resposta.status != 200){
+            alert('Erro ao modificar!')
+        }
+        else alert('Modificado com sucesso!')
+        window.location.href = "fornecedor.html"
+    })
+}
+
+
+
+function criarFornecedor(form){
+    const fornecedorNovo = {
         nome: form.target.nome.value,
         cnpj: form.target.cnpj.value,
         telefone: form.target.telefone.value,
+        email: form.target.email.value,
         cep: form.target.cep.value,
         estado: form.target.estado.value,
         cidade: form.target.cidade.value,
         bairro: form.target.bairro.value,
         endereco: form.target.endereco.value,
-        complemento: form.target.complemento.value,
-        email: form.target.email.value,
+        complemento: form.target.complemento.value
     }
-
-    fetch('https://pi-fatec2s-maracujadesign.onrender.com/fornecedores', {
+    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/fornecedores`,{
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(fornecedor),
-    }).then((resposta) => {
-        if (resposta.status != 200 && resposta.status != 201) {
-            alert('Erro ao cadastrar fornecedor!')
-        } else {
-            alert('Fornecedor cadastrado com sucesso!')
+        headers: {'Content-type':'application/json'},
+        body: JSON.stringify(fornecedorNovo)
+    })
+    .then(resposta => {
+        if(resposta.status != 201){
+            alert('Erro ao cadastrar!')
         }
-        form.target.reset()
-        atualizaFornecedores()
+        else {
+            alert('Cadastrado com sucesso!')
+            window.location.href = "fornecedor.html"
+        }
     })
 }
 
-document.getElementById('formUpdate').addEventListener('submit', function (event) {
+const formReg = document.getElementById('formCadastro')
+formReg.addEventListener('submit', (event) => {
     event.preventDefault()
-    atualizarFornecedor(event)
+    //console.log(event.target.nome.value)
+    criarFornecedor(event)
 })
 
-function atualizarFornecedor(form) {
-    const fornecedor = {
-        nome: form.target.nomeUpdate.value,
-        cnpj: form.target.cnpjUpdate.value,
-        telefone: form.target.telefoneUpdate.value,
-        cep: form.target.cepUpdate.value,
-        estado: form.target.estadoUpdate.value,
-        cidade: form.target.cidadeUpdate.value,
-        bairro: form.target.bairroUpdate.value,
-        endereco: form.target.enderecoUpdate.value,
-        complemento: form.target.complementoUpdate.value,
-        email: form.target.emailUpdate.value,
-    }
 
-    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/fornecedores/${form.target.idUpdate.value}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(fornecedor),
-    }).then((resposta) => {
-        if (resposta.status != 200) {
-            alert('Erro ao atualizar o fornecedor!')
-        } else {
-            alert('Fornecedor atualizado com sucesso!')
-        }
-        form.target.reset()
-        atualizaFornecedores()
-        document.getElementById('btnUpdate').disabled = true
-    })
-}
+atualizarFornecedores()
+const Att = document.getElementById('formAtt')
+Att.addEventListener('submit', (event) => {
+    event.preventDefault()
+    //console.log(event.target.attNome.value)
+    modificarFornecedor(event)
+})
