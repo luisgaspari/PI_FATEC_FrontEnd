@@ -1,5 +1,5 @@
-// const host = 'https://pi-fatec2s-maracujadesign.onrender.com'
-const host = 'http://localhost:3000'
+const host = 'https://pi-fatec2s-maracujadesign.onrender.com'
+//const host = 'http://localhost:3000'
 
 listaClientes()
 
