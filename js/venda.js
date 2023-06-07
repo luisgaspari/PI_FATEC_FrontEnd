@@ -1,9 +1,12 @@
+// const host = 'https://pi-fatec2s-maracujadesign.onrender.com'
+const host = 'http://localhost:3000'
+
 listaClientes()
 
 function atualizarPedidos() {
     document.getElementById('listaPedidos').innerHTML = ''
 
-    const pedidos = fetch('https://pi-fatec2s-maracujadesign.onrender.com/vendas')
+    const pedidos = fetch(`${host}/vendas`)
         .then((resposta) => resposta.json())
         .then((pedidos) => {
             pedidos.forEach((pedido) => {
@@ -28,6 +31,8 @@ function atualizarPedidos() {
                 const botaoAtualizar = document.createElement('button')
                 botaoAtualizar.textContent = 'Atualizar'
                 botaoAtualizar.className = 'btn btn-warning btn-sm'
+                botaoAtualizar.setAttribute('data-toggle', 'modal')
+                botaoAtualizar.setAttribute('data-target', '#updateModal')
                 botaoAtualizar.addEventListener('click', () => mostrarPedido(pedido))
                 span.appendChild(botaoAtualizar)
 
@@ -54,7 +59,7 @@ function cadastrarPedido(form) {
         totalPedido: 0,
     }
 
-    fetch('https://pi-fatec2s-maracujadesign.onrender.com/vendas', {
+    fetch(`${host}/vendas`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(pedido),
@@ -71,7 +76,7 @@ function cadastrarPedido(form) {
 }
 
 function deletePedido(id) {
-    fetch(`https://pi-fatec2s-maracujadesign.onrender.com/vendas/${id}`, {
+    fetch(`${host}/vendas/${id}`, {
         method: 'DELETE',
     }).then((resposta) => {
         if (resposta.status != 200) {
@@ -82,8 +87,29 @@ function deletePedido(id) {
     })
 }
 
+function mostrarPedido(pedido) {
+    dataPedido = new Date(pedido.dataPedido)
+    formatDataPedido = data.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+    dataEntrega = new Date(pedido.dataEntrega)
+    formatDataEntrega = data.toLocaleDateString('pt-BR', { timeZone: 'UTC' })
+    formatTotal = pedido.totalPedido.toFixed(2)
+    document.getElementById('updateID').value = pedido.id
+    document.getElementById('updateCliente').value = pedido.cliente.nome
+    document.getElementById('updateTelefone').value = pedido.cliente.telefone
+    document.getElementById('updateEmail').value = pedido.cliente.email
+    document.getElementById('updateEndereco').value = pedido.cliente.endereco
+    document.getElementById('updateComplemento').value = pedido.cliente.complemento
+    document.getElementById('updateCidade').value = pedido.cliente.cidade
+    document.getElementById('updateEstado').value = pedido.cliente.estado
+    document.getElementById('updateCEP').value = pedido.cliente.cep
+    document.getElementById('updateFormaPagamento').value = pedido.formaPagamento
+    document.getElementById('updateDataPedido').value = formatDataPedido
+    document.getElementById('updateDataEntrega').value = formatDataEntrega
+    document.getElementById('updateValorTotal').value = formatTotal
+}
+
 function listaClientes() {
-    const clientes = fetch('https://pi-fatec2s-maracujadesign.onrender.com/clientes')
+    const clientes = fetch(`${host}/clientes`)
         .then((resposta) => resposta.json())
         .then((clientes) => {
             var select = document.getElementById('selectCliente')
@@ -97,7 +123,7 @@ function listaClientes() {
 }
 
 function mostraDadosCliente(id) {
-    const cliente = fetch(`https://pi-fatec2s-maracujadesign.onrender.com/clientes/${id}`)
+    const cliente = fetch(`${host}/clientes/${id}`)
         .then((resposta) => resposta.json())
         .then((cliente) => {
             document.getElementById('showTelefone').value = cliente.telefone
@@ -111,7 +137,7 @@ function mostraDadosCliente(id) {
 }
 
 function listaProdutos() {
-    const clientes = fetch('https://pi-fatec2s-maracujadesign.onrender.com/produtos')
+    const clientes = fetch(`${host}/produtos`)
         .then((resposta) => resposta.json())
         .then((produtos) => {
             var select = document.getElementById('selectProduto')
@@ -125,7 +151,7 @@ function listaProdutos() {
 }
 
 function mostraDadosProduto(id) {
-    const cliente = fetch(`https://pi-fatec2s-maracujadesign.onrender.com/produtos/${id}`)
+    const cliente = fetch(`${host}/produtos/${id}`)
         .then((resposta) => resposta.json())
         .then((produto) => {
             document.getElementById('showTelefone').value = produto.descricao
