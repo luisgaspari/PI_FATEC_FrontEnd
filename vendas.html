@@ -56,19 +56,19 @@
         <div class="container">
             <h1 class="h1">Pedidos de Vendas</h1>
             <hr />
-            <input type="submit" value="Novo Pedido" class="btn btn-primary mt-2" data-toggle="modal" data-target="#novoModal" />
+            <input type="submit" value="Novo Pedido" class="btn btn-primary mt-2" onclick="javascript:onOpenFormCadastrar();" />
 
-            <div class="modal fade" id="novoModal" tabindex="-1" role="dialog" aria-labelledby="novoModalLabel">
+            <div class="modal fade" id="novoModal" tabindex="-1" role="dialog" aria-labelledby="novoModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"></span>
                             </button>
-                            <h4 class="modal-title" id="novoModalLabel">Novo Pedido</h4>
+                            <h4 class="modal-title" id="novoModalLabel"></h4>
                         </div>
                         <div class="modal-body">
-                            <form name="novoPedido" method="post" id="formNovoPedido">
+                            <form name="formCadastrar" method="post" id="formCadastrar">
                                 <input type="hidden" id="pedidoID" />
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
@@ -147,13 +147,23 @@
                                         <input type="number" class="form-control form-control-sm text-right" id="totalPedido" readonly />
                                     </div>
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <h6>Produtos:</h6>
-                                </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                    <button type="button" class="btn btn-primary" id="btnAddNovo" disabled>Adicionar Produtos</button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary"
+                                        id="btnAddProdutoCadastrar"
+                                        onclick="javascript:abrirFormProduto('formCadastrar');"
+                                    >
+                                        Adicionar Produtos
+                                    </button>
                                     <input type="submit" value="Salvar" class="btn btn-primary" />
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <h6>Produtos:</h6>
+                                    <div>
+                                        <ul id="listaProdutosCadastrar" class="list-group"></ul>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -171,42 +181,48 @@
                             <h4 class="modal-title" id="updateModalLabel">Atualizar Pedido</h4>
                         </div>
                         <div class="modal-body">
-                            <form name="updatePedido" method="post" id="formUpdatePedido">
+                            <form name="formAtualizar" method="post" id="formAtualizar">
                                 <input type="hidden" id="updateID" />
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="updateCliente" class="col-form-label col-form-label-sm">Cliente</label>
-                                        <input type="text" class="form-control form-control-sm" id="updateCliente" />
+                                        <select
+                                            id="updateCliente"
+                                            class="form-control form-control-sm"
+                                            onchange="javascript:updateDadosCliente(this.value);"
+                                        >
+                                            <option hidden>Selecione um cliente</option>
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="updateTelefone" class="col-form-label col-form-label-sm">Telefone</label>
-                                        <input type="text" class="form-control form-control-sm" id="updateTelefone" />
+                                        <input type="text" class="form-control form-control-sm" id="updateTelefone" readonly />
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="updateEmail" class="col-form-label col-form-label-sm">Email</label>
-                                        <input type="text" class="form-control form-control-sm" id="updateEmail" />
+                                        <input type="text" class="form-control form-control-sm" id="updateEmail" readonly />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="updateEndereco" class="col-form-label col-form-label-sm">Endereço</label>
-                                    <input type="text" class="form-control form-control-sm" id="updateEndereco" />
+                                    <input type="text" class="form-control form-control-sm" id="updateEndereco" readonly />
                                 </div>
                                 <div class="form-group">
                                     <label for="updateComplemento" class="col-form-label col-form-label-sm">Complemento</label>
-                                    <input type="text" class="form-control form-control-sm" id="updateComplemento" />
+                                    <input type="text" class="form-control form-control-sm" id="updateComplemento" readonly />
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="updateCidade" class="col-form-label col-form-label-sm">Cidade</label>
-                                        <input type="text" class="form-control form-control-sm" id="updateCidade" />
+                                        <input type="text" class="form-control form-control-sm" id="updateCidade" readonly />
                                     </div>
                                     <div class="form-group col-md-4">
                                         <label for="updateEstado" class="col-form-label col-form-label-sm">Estado</label>
-                                        <input type="text" class="form-control form-control-sm" id="updateEstado" />
+                                        <input type="text" class="form-control form-control-sm" id="updateEstado" readonly />
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="updateCEP" class="col-form-label col-form-label-sm">CEP</label>
-                                        <input type="text" class="form-control form-control-sm" id="updateCEP" />
+                                        <input type="text" class="form-control form-control-sm" id="updateCEP" readonly />
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -234,17 +250,104 @@
                                         <input type="text" class="form-control form-control-sm text-right" id="updateValorTotal" readonly />
                                     </div>
                                 </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary"
+                                        id="btnAddProdutoAtualizar"
+                                        onclick="javascript:abrirFormProduto('formAtualizar');"
+                                    >
+                                        Adicionar Produtos
+                                    </button>
+                                    <input type="submit" value="Atualizar" class="btn btn-primary" />
+                                </div>
                                 <div class="form-group col-md-12">
                                     <h6>Produtos:</h6>
+                                    <div>
+                                        <ul id="listaProdutosAtualizar" class="list-group"></ul>
+                                    </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <button type="submit" class="btn btn-primary" id="btnAddUpdate">Adicionar Produtos</button>
-                            <button type="button" id="save" class="btn btn-primary" onclick="javascript:createVenda();">
-                                Salvar Dados
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="modal fade"
+                id="produtoModal"
+                data-backdrop="static"
+                data-keyboard="true"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="produtoModalLabel"
+            >
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"></span>
                             </button>
+                            <h4 class="modal-title" id="produtoModalLabel">Produto</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form name="formProduto" method="post" id="formProduto">
+                                <input type="hidden" id="prodPedID" />
+                                <div class="form-row">
+                                    <div class="form-group col-md-10">
+                                        <label for="selectProduto" class="col-form-label col-form-label-sm">Produto</label>
+                                        <select
+                                            id="selectProduto"
+                                            class="form-control form-control-sm"
+                                            onchange="javascript:mostraDadosProduto(this.value);"
+                                        >
+                                            <option hidden>Selecione um produto</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="quantidade" class="col-form-label col-form-label-sm">Quantidade</label>
+                                        <input
+                                            type="text"
+                                            class="form-control form-control-sm text-right"
+                                            id="quantidade"
+                                            onchange="javascript:calculaTotalProduto();"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="personalizacao" class="col-form-label col-form-label-sm"
+                                        >Descrição da Arte e Personalização</label
+                                    >
+                                    <input type="text" class="form-control form-control-sm" id="personalizacao" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="fichaTecnica" class="col-form-label col-form-label-sm">Ficha Técnica</label>
+                                    <input type="text" class="form-control form-control-sm" id="fichaTecnica" readonly />
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="unidadeMedida" class="col-form-label col-form-label-sm">U.M.</label>
+                                        <input type="text" class="form-control form-control-sm" id="unidadeMedida" readonly />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="tipoProduto" class="col-form-label col-form-label-sm">Tipo</label>
+                                        <input type="text" class="form-control form-control-sm" id="tipoProduto" readonly />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="valorVenda" class="col-form-label col-form-label-sm">Preço Unitário</label>
+                                        <input type="text" class="form-control form-control-sm text-right" id="valorVenda" readonly />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="totalProduto" class="col-form-label col-form-label-sm">Total do Produto</label>
+                                        <input type="text" class="form-control form-control-sm text-right" id="totalProduto" readonly />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    <input type="submit" value="Adicionar" class="btn btn-primary" />
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
