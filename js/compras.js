@@ -324,11 +324,11 @@ function listaUpdateFornecedores() {
 }
 // Mostra dados do Fornecedor no Formulário Atualizar
 function updateDadosFornecedor(id) {
-    const cliente = fetch(
+    const fornecedor = fetch(
         `https://pi-fatec2s-maracujadesign.onrender.com/fornecedores/${id}`
     )
         .then((resposta) => resposta.json())
-        .then((cliente) => {
+        .then((fornecedor) => {
             document.getElementById("showTelefone").value = fornecedor.telefone
             document.getElementById("showEmail").value = fornecedor.email
             document.getElementById("showEndereco").value = fornecedor.endereco
