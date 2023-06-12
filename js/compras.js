@@ -236,7 +236,7 @@ function onOpenFormCadastrar() {
 }
 // Aguarda o click no botão Salvar
 document
-    .getElementById("formNovoPedido")
+    .getElementById("formCadastrar")
     .addEventListener("submit", function (event) {
         event.preventDefault()
         cadastrarCompra(event)
