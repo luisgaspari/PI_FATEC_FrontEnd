@@ -15,7 +15,7 @@ function listarCompras() {
                 formatData2 = data2.toLocaleDateString("pt-BR", {
                     timeZone: "UTC",
                 })
-                formatTotal = compra.totalCompra.toFixed(2)
+                formatTotal = compra.totalPedido.toFixed(2)
                 const li = document.createElement("li")
                 li.className =
                     "list-group-item d-flex justify-content-between list-group-item-secondary"
@@ -138,7 +138,7 @@ function mostrarProdutos(id) {
 function abrirFormProduto(origem) {
     switch (origem) {
         case "formCadastrar":
-            document.getElementById("prodPedID").value = $("#pedidoID").val()
+            document.getElementById("prodPedID").value = $("#compraID").val()
             break
         case "formAtualizar":
             document.getElementById("prodPedID").value = $("#updateID").val()
@@ -247,7 +247,7 @@ document
 // Cadastra Novo Pedido no Banco de Dados
 function cadastrarCompra(form) {
     const compra = {
-        fornecedorId: form.target.selectfornecedor.value,
+        fornecedorId: form.target.selectFornecedor.value,
         dataPedido: form.target.dataPedido.value,
         dataEntrega: form.target.dataEntrega.value,
         formaPagamento: form.target.formaPagamento.value,
